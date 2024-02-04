@@ -1,0 +1,64 @@
+models:
+  # ...
+
+  # User:
+  #   email: string:100 unique
+  #   name: string:50
+  #   description: string:100
+  #   password: string:100
+  #   relationships:
+  #     morphOne: Image
+  #     hasMany: HasJoined
+
+  Message:
+    user_id: id foreign
+    group_id: id foreign
+    text: string:400
+    timestamps: true
+    relationships:
+      morphOne: Image
+      hasOne: Video, Audio
+
+  Group:
+    name: string:100
+    description: string:200
+    relationships:
+      morphOne: Image
+      hasMany: HasJoined, Message
+
+  HasJoined:
+    user_id: id foreign
+    group_id: id foreign
+    isOwner: boolean
+
+  Friend:
+    user_id: id foreign
+    friend_id: id foreign:users
+    accepted: boolean
+    blocked: boolean
+
+  Image:
+    url: string:300
+    relationships:
+      morphTo: Imageable
+
+  Video:
+    url: string:300
+
+  Audio:
+    url: string:300
+controllers:
+  Message:
+    resource: api
+
+  Group:
+    resource: api
+
+  Image:
+    resource: api
+
+  Video:
+    resource: api
+
+  Audio:
+    resource: api

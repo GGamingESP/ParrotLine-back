@@ -1,0 +1,63 @@
+created:
+    - app/Http/Controllers/MessageController.php
+    - app/Http/Controllers/GroupController.php
+    - app/Http/Controllers/ImageController.php
+    - app/Http/Controllers/VideoController.php
+    - app/Http/Controllers/AudioController.php
+    - database/factories/MessageFactory.php
+    - database/factories/GroupFactory.php
+    - database/factories/HasJoinedFactory.php
+    - database/factories/FriendFactory.php
+    - database/factories/ImageFactory.php
+    - database/factories/VideoFactory.php
+    - database/factories/AudioFactory.php
+    - database/migrations/2024_02_01_174629_create_messages_table.php
+    - database/migrations/2024_02_01_174630_create_groups_table.php
+    - database/migrations/2024_02_01_174631_create_has_joineds_table.php
+    - database/migrations/2024_02_01_174632_create_friends_table.php
+    - database/migrations/2024_02_01_174633_create_images_table.php
+    - database/migrations/2024_02_01_174634_create_videos_table.php
+    - database/migrations/2024_02_01_174635_create_audio_table.php
+    - app/Models/Message.php
+    - app/Models/Group.php
+    - app/Models/HasJoined.php
+    - app/Models/Friend.php
+    - app/Models/Image.php
+    - app/Models/Video.php
+    - app/Models/Audio.php
+    - tests/Feature/Http/Controllers/MessageControllerTest.php
+    - tests/Feature/Http/Controllers/GroupControllerTest.php
+    - tests/Feature/Http/Controllers/ImageControllerTest.php
+    - tests/Feature/Http/Controllers/VideoControllerTest.php
+    - tests/Feature/Http/Controllers/AudioControllerTest.php
+    - app/Http/Requests/MessageStoreRequest.php
+    - app/Http/Requests/MessageUpdateRequest.php
+    - app/Http/Requests/GroupStoreRequest.php
+    - app/Http/Requests/GroupUpdateRequest.php
+    - app/Http/Requests/ImageStoreRequest.php
+    - app/Http/Requests/ImageUpdateRequest.php
+    - app/Http/Requests/VideoStoreRequest.php
+    - app/Http/Requests/VideoUpdateRequest.php
+    - app/Http/Requests/AudioStoreRequest.php
+    - app/Http/Requests/AudioUpdateRequest.php
+    - app/Http/Resources/MessageCollection.php
+    - app/Http/Resources/MessageResource.php
+    - app/Http/Resources/GroupCollection.php
+    - app/Http/Resources/GroupResource.php
+    - app/Http/Resources/ImageCollection.php
+    - app/Http/Resources/ImageResource.php
+    - app/Http/Resources/VideoCollection.php
+    - app/Http/Resources/VideoResource.php
+    - app/Http/Resources/AudioCollection.php
+    - app/Http/Resources/AudioResource.php
+updated:
+    - routes/api.php
+models:
+    User: { name: string, email: string, description: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Message: { user_id: 'id foreign', group_id: 'id foreign', text: 'string:400', timestamps: timestamps, relationships: { morphOne: Image, hasOne: 'Video, Audio' } }
+    Group: { name: 'string:100', description: 'string:200', relationships: { morphOne: Image, hasMany: 'HasJoined, Message' } }
+    HasJoined: { user_id: 'id foreign', group_id: 'id foreign', isOwner: boolean }
+    Friend: { user_id: 'id foreign', friend_id: 'id foreign:users', accepted: boolean, blocked: boolean }
+    Image: { url: 'string:300', relationships: { morphTo: Imageable } }
+    Video: { url: 'string:300' }
+    Audio: { url: 'string:300' }
