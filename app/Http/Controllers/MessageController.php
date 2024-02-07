@@ -51,7 +51,13 @@ class MessageController extends Controller
 
     public function createMessageWithImage(Request $request)
     {
-        $message = Message::create($request);
+        $newMessage = new Message;
+
+        $newMessage->user_id = $request->user_id;
+        $newMessage->group_id = $request->group_id;
+        $newMessage->text = " ";
+
+        $newMessage->save();
 
         $imagen = $request->file('imagen');
 
@@ -64,9 +70,9 @@ class MessageController extends Controller
         $newMessageImage = new Image;
         $newMessageImage->url = 'imagenes/' . $nombreImagen;
 
-        $message->image->save($newMessageImage);
+        $newMessage->image->save($newMessageImage);
 
-        return new MessageResource($message);
+        return new MessageResource($newMessage);
     }
 
     public function createMessageWithVideo(Request $request)

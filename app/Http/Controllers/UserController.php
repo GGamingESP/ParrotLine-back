@@ -111,7 +111,8 @@ class UserController extends Controller
         $user->friends()->save($ownFriend);
 
         $response = [
-            "data" => "success"
+            "status" => "success",
+            "data" => $ownUser->friendsUser
         ];
 
         return response()->json($response, 200);
@@ -155,7 +156,7 @@ class UserController extends Controller
 
         $user->image->save($newUserImage);
 
-        return new ImageResource($user->image);
+        return new UserResource($user);
     }
 
     public function leaveGroup(Group $group)
@@ -171,5 +172,22 @@ class UserController extends Controller
         ];
 
         return response()->json($response, 200);
+    }
+
+    public function joinGroup(Group $group)
+    {
+        $user = auth()->user();
+
+        $newJoin = new HasJoined;
+
+        $newJoin->user_id = $user->id;
+
+        $newJoin->group_id = $group->id;
+
+        $newJoin->isOwner = false;
+
+        $newJoin->save();
+
+        return $user->groups;
     }
 }
