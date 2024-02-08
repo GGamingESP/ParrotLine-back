@@ -154,7 +154,7 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $user->image->save($newUserImage);
+        $user->image()->save($newUserImage);
 
         return new UserResource($user);
     }
