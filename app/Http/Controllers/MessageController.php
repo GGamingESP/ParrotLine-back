@@ -51,13 +51,9 @@ class MessageController extends Controller
 
     public function createMessageWithImage(Request $request)
     {
-        $newMessage = new Message;
+        $req = array("user_id" => $request->user_id, "group_id" => $request->group_id, "text" => " ");
+        $newMessage = Message::create($req);
 
-        $newMessage->user_id = $request->user_id;
-        $newMessage->group_id = $request->group_id;
-        $newMessage->text = " ";
-
-        $newMessage->save();
         $path = Storage::putFile('imagenes', $request->file('imagen'));
 
         $newMessageImage = new Image;
