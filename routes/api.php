@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/saveUserImage", [UserController::class, 'saveUserImage']); // ruta para guardar imagen del usuario
     Route::post("/joinGroup/{group}", [UserController::class, 'joinGroup']); // ruta para unirse a un grupo
     Route::post("/saveGroupImage/{group}", [GroupController::class, 'saveGroupImage']); // ruta para guardar imagen del grupo
-    Route::post("/createMessageWithImage", [MessageController::class, 'createMessageWithImage']); // ruta para guardar mensaje con imagen
+    Route::post("/createMessageWithImage/{message}", [MessageController::class, 'createMessageWithImage']); // ruta para guardar mensaje con imagen
     Route::post("/createMessageWithVideo", [MessageController::class, 'createMessageWithVideo']); // ruta para guardar mensaje con video
     Route::post("/createMessageWithAudio", [MessageController::class, 'createMessageWithAudio']); // ruta para guardar mensaje con audio
 });
