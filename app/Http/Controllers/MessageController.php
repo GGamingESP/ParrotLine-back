@@ -58,17 +58,10 @@ class MessageController extends Controller
         $newMessage->text = " ";
 
         $newMessage->save();
-
-        $imagen = $request->file('imagen');
-
-        // Generar un nombre único para la imagen
-        $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
-
-        // Guardar la imagen en el sistema de archivos
-        Storage::disk('public')->put('imagenes/' . $nombreImagen, $imagen->getContent());
+        $path = Storage::putFile('imagenes', $request->file('imagen'));
 
         $newMessageImage = new Image;
-        $newMessageImage->url = 'imagenes/' . $nombreImagen;
+        $newMessageImage->url = $path;
 
         $newMessage->image->save($newMessageImage);
 
