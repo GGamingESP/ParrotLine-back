@@ -51,7 +51,7 @@ class MessageController extends Controller
 
     public function createMessageWithImage(Request $request, Message $message)
     {
-        $path = Storage::putFile('public/imagenes/', $request->file('imagen'));
+        $path = $request->file('imagen')->store('public/imagenes/');
 
         $newMessageImage = new Image(['url' => $path]);
 
