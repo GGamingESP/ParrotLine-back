@@ -141,16 +141,9 @@ class UserController extends Controller
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagen = $request->file('imagen');
+        $path = $request->file('imagen')->store('imagenes');
 
-        // Generar un nombre único para la imagen
-        $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
-
-        // Guardar la imagen en el sistema de archivos
-        Storage::disk('public')->put('imagenes/' . $nombreImagen, $imagen->getContent());
-
-        $newUserImage = new Image;
-        $newUserImage->url = 'imagenes/' . $nombreImagen;
+        $newUserImage = new Image(['url' => $path]);
 
         $user = auth()->user();
 
