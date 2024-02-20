@@ -17,7 +17,6 @@ class MessageResource extends JsonResource
             'user_id' => $this->user_id,
             'group_id' => $this->group_id,
             'text' => $this->text,
-            'imagen' => new MessageResource($this->image),
             'image' => ImageResource::make($this->whenLoaded('image')),
             'audio' => AudioResource::make($this->whenLoaded('audio')),
         ];
