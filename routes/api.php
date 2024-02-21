@@ -62,11 +62,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/getImage/{user}", [UserController::class, 'userImage']); // imagen del usuario que envies
     Route::get("/sendRequest/{user}", [UserController::class, 'sendFriendRequest']); // envia la solicitud de amistad
     Route::get("/acceptRequest/{user}", [UserController::class, 'acceptRequest']); // acepta la solicitud de un usuario
-    Route::get("/leaveGroup/{group}", [UserController::class, 'leaveGroup']); // te sales de un grupo
+    Route::post("/leaveGroup/{group}", [UserController::class, 'leaveGroup']); // te sales de un grupo
     Route::post("/saveUserImage", [UserController::class, 'saveUserImage']); // ruta para guardar imagen del usuario
     Route::post("/joinGroup/{group}", [UserController::class, 'joinGroup']); // ruta para unirse a un grupo
     Route::post("/saveGroupImage/{group}", [GroupController::class, 'saveGroupImage']); // ruta para guardar imagen del grupo
     Route::post("/createMessageWithImage/{message}", [MessageController::class, 'createMessageWithImage']); // ruta para guardar mensaje con imagen
-    Route::post("/createMessageWithVideo", [MessageController::class, 'createMessageWithVideo']); // ruta para guardar mensaje con video
-    Route::post("/createMessageWithAudio", [MessageController::class, 'createMessageWithAudio']); // ruta para guardar mensaje con audio
+    Route::post("/createMessageWithVideo/{message}", [MessageController::class, 'createMessageWithVideo']); // ruta para guardar mensaje con video
+    Route::post("/createMessageWithAudio/{message}", [MessageController::class, 'createMessageWithAudio']); // ruta para guardar mensaje con audio
 });

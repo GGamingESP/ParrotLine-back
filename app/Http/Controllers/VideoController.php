@@ -12,26 +12,26 @@ use Illuminate\Http\Response;
 
 class VideoController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $videos = Video::all();
 
         return new VideoCollection($videos);
     }
 
-    public function store(VideoStoreRequest $request): Response
+    public function store(VideoStoreRequest $request)
     {
         $video = Video::create($request->validated());
 
         return new VideoResource($video);
     }
 
-    public function show(Request $request, Video $video): Response
+    public function show(Request $request, Video $video)
     {
         return new VideoResource($video);
     }
 
-    public function update(VideoUpdateRequest $request, Video $video): Response
+    public function update(VideoUpdateRequest $request, Video $video)
     {
         $video->update($request->validated());
 

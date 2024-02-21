@@ -60,40 +60,22 @@ class MessageController extends Controller
         return new MessageResource($message);
     }
 
-    public function createMessageWithVideo(Request $request)
+    public function createMessageWithVideo(Request $request, Message $message)
     {
-        $message = Message::create($request);
+        $path = $request->file('imagen')->store('public/imagenes');
 
-        $imagen = $request->file('imagen');
-
-        // Generar un nombre único para la imagen
-        $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
-
-        // Guardar la imagen en el sistema de archivos
-        Storage::disk('public')->put('imagenes/' . $nombreImagen, $imagen->getContent());
-
-        $newMessageVideo = new Video;
-        $newMessageVideo->url = 'imagenes/' . $nombreImagen;
-        $message->video->save($newMessageVideo);
+        $newMessageVideo = new Video(['url' => $path]);;
+        $message->video()->save($newMessageVideo);
 
         return new MessageResource($message);
     }
 
-    public function createMessageWithAudio(Request $request)
+    public function createMessageWithAudio(Request $request, Message $message)
     {
-        $message = Message::create($request);
+        $path = $request->file('imagen')->store('public/imagenes');
 
-        $imagen = $request->file('imagen');
-
-        // Generar un nombre único para la imagen
-        $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
-
-        // Guardar la imagen en el sistema de archivos
-        Storage::disk('public')->put('imagenes/' . $nombreImagen, $imagen->getContent());
-
-        $newMessageVideo = new Audio;
-        $newMessageVideo->url = 'imagenes/' . $nombreImagen;
-        $message->audio->save($newMessageVideo);
+        $newMessageVideo = new Audio(['url' => $path]);
+        $message->audio()->save($newMessageVideo);
 
         return new MessageResource($message);
     }
