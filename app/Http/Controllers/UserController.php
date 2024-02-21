@@ -49,7 +49,26 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // Validar la entrada
+        $validatedData = $request->validate([
+            'name' => 'string|nullable|max:255',
+            'description' => 'string|nullable',
+        ]);
+
+        // Obtener el usuario actual
+        $currentUser = auth()->user();
+
+        // Si el usuario actual no coincide con el usuario que se está actualizando,
+        // denegar el acceso
+        if ($currentUser->id !== $user->id) {
+            abort(403);
+        }
+
+        // Actualizar el nombre y/o la descripción del usuario
+        $user->update($validatedData);
+
+        // Devolver una respuesta JSON con el usuario actualizado
+        return response()->json($user, 200);
     }
 
     /**
