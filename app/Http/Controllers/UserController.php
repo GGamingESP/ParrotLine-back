@@ -154,6 +154,44 @@ class UserController extends Controller
         return response()->json($response, 200);
     }
 
+    public function blockUser(User $user)
+    {
+        $ownUser = auth()->user();
+
+        $ownFriend = $ownUser->friends();
+
+        $ownFriend->where("friend_id", $user->id)->where("user_id", $ownUser->id)->update(['blocked' => 1]);
+
+        $otherFriends = $user->friends(); // funciona
+
+        $otherFriends->where("friend_id", $ownUser->id)->where("user_id", $user->id)->update(['blocked' => 1]);
+
+        $response = [
+            "data" => "success"
+        ];
+
+        return response()->json($response, 200);
+    }
+
+    public function unblockUser(User $user)
+    {
+        $ownUser = auth()->user();
+
+        $ownFriend = $ownUser->friends();
+
+        $ownFriend->where("friend_id", $user->id)->where("user_id", $ownUser->id)->update(['blocked' => 0]);
+
+        $otherFriends = $user->friends(); // funciona
+
+        $otherFriends->where("friend_id", $ownUser->id)->where("user_id", $user->id)->update(['blocked' => 0]);
+
+        $response = [
+            "data" => "success"
+        ];
+
+        return response()->json($response, 200);
+    }
+
     public function saveUserImage(Request $request)
     {
         $request->validate([

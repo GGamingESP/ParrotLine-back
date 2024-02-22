@@ -62,6 +62,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/getImage/{user}", [UserController::class, 'userImage']); // imagen del usuario que envies
     Route::get("/sendRequest/{user}", [UserController::class, 'sendFriendRequest']); // envia la solicitud de amistad
     Route::get("/acceptRequest/{user}", [UserController::class, 'acceptRequest']); // acepta la solicitud de un usuario
+    Route::get("/blockFriend/{user}", [UserController::class, 'blockUser']); // blockeas a un usuario
+    Route::get("/unblockFriend/{user}", [UserController::class, 'unblockUser']); // desbloqueas a un usuario
     Route::post("/leaveGroup/{group}", [UserController::class, 'leaveGroup']); // te sales de un grupo
     Route::post("/saveUserImage", [UserController::class, 'saveUserImage']); // ruta para guardar imagen del usuario
     Route::post("/joinGroup/{group}", [UserController::class, 'joinGroup']); // ruta para unirse a un grupo
